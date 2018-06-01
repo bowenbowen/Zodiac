@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Zodiac</title>
+        <meta name="description" content="Western & eastern zodiac">
+        <meta name="author" content="Bowen Shen">
+        <!-- Some basic page information -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- This 'meta' tag talks to mobile browsers and makes sure the width of everything is set proportionally to the mobile display. -->
+        <link href="stylesheet.css" rel="stylesheet"/ type="text/css">
+        <!--linked stylesheet -->
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <!-- link a web font I'm going to use troughout the page -->
+        <script type="text/javascript" src="zodiac.json"></script>
+        <!-- link the json data -->
+        <script type="text/javascript" src="javascript.js"></script>
+        <!-- link the javascript -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Install jquery from google CDN -->
+    </head>
+    
+    <body class="outer"><!-- Prevent page scroll -->
+        <div id="square"></div>
+        <!-- Left background  -->
+        <div id="circle"></div>
+        <!-- Circle in the middle -->
+        <div id="circleTrigger"></div>
+        <!-- Circle used to trigger info -->
+        
+        
+        <h1 id="pageTitle">ZOD<span>IAC</span></h1>
+
+        <div id="western">W<span>estern zodiac</span></div>
+        <div id="eastern">E<span>astern zodiac</span></div>
+
+        
+        
+        <div class="tooltip"><b> ? </b>
+          <span class="tooltiptext">Input your birthday to generate your zodiac sign or navigate by yourself. Hover over the sign to see the detailed infomation of your signs.</span>
+        </div>
+        <!-- Tooltip: How to use -->
+        
+        
+        <button id="prompt" onclick="promptInput()" title="Generate your zodiac sign">&#9733;</button>
+        <!-- trigger to input birthday -->
+        
+        
+        
+        
+        
+        <!-- Hide elements outside page instead of stretching page:
+            https://stackoverflow.com/questions/6746649/css-hide-element-off-the-right-of-the-screen -->
+        
+        <div class="outer">
+            <div class="wesSigns">
+                <img class="idleWes animate" src="img/Aries.svg" alt="Aries" title="Aries" id="w0">
+                <img class="idleWes animate" src="img/Taurus.svg" alt="Taurus" title="Taurus" id="w1">
+                <img class="idleWes animate" src="img/Gemini.svg" alt="Gemini" title="Gemini" id="w2">
+                <img class="idleWes animate" src="img/Cancer.svg" alt="Cancer" title="Cancer" id="w3">
+                <img class="idleWes animate" src="img/Leo.svg" alt="Leo" title="Leo" id="w4">
+                <img class="idleWes animate" src="img/Virgo.svg" alt="Virgo" title="Virgo" id="w5">
+                <img class="idleWes animate" src="img/Libra.svg" alt="Libra" title="Libra" id="w6">
+                <img class="idleWes animate" src="img/Scorpio.svg" alt="Scorpio" title="Scorpio" id="w7">
+                <img class="idleWes animate" src="img/Sagittarius.svg" alt="Sagittarius" title="Sagittarius" id="w8">
+                <img class="idleWes animate" src="img/Capricorn.svg" alt="Capricorn" title="Capricorn" id="w9">
+                <img class="idleWes animate" src="img/Aquarius.svg" alt="Aquarius" title="Aquarius" id="w10">
+                <img class="idleWes animate" src="img/Pisces.svg" alt="Pisces" title="Pisces" id="w11">
+            </div>        
+        
+            <div class="easSigns">
+                <img class="idleEas animate" src="img/rat.svg" alt="rat" title="rat" id="e0">
+                <img class="idleEas animate" src="img/ox.svg" alt="ox" title="ox" id="e1">
+                <img class="idleEas animate" src="img/tiger.svg" alt="tiger" title="tiger" id="e2">
+                <img class="idleEas animate" src="img/rabbit.svg" alt="rabbit" title="rabbit" id="e3">
+                <img class="idleEas animate" src="img/dragon.svg" alt="dragon" title="dragon" id="e4">
+                <img class="idleEas animate" src="img/snake.svg" alt="snake" title="snake" id="e5">
+                <img class="idleEas animate" src="img/horse.svg" alt="horse" title="horse" id="e6">
+                <img class="idleEas animate" src="img/goat.svg" alt="goat" title="goat" id="e7">
+                <img class="idleEas animate" src="img/monkey.svg" alt="monkey" title="monkey" id="e8">
+                <img class="idleEas animate" src="img/rooster.svg" alt="rooster" title="rooster" id="e9">
+                <img class="idleEas animate" src="img/dog.svg" alt="dog" title="dog" id="e10">
+                <img class="idleEas animate" src="img/pig.svg" alt="pig" title="pig" id="e11">
+            </div>
+        </div>
+        
+        <img class="buttons" onclick="preWes()" src="img/whiteUp.svg" alt="whiteUp" title ="Previous" id="whiteUp">
+        <img class="buttons" onclick="nextWes()" src="img/whiteDown.svg" alt="whiteDown" title ="Next"  id="whiteDown">
+        <img class="buttons" onclick="preEas()" src="img/blkUp.svg" alt="blkUp" title ="Previous" id="blkUp">
+        <img class="buttons" onclick="nextEas()" src="img/blkDown.svg" alt="blkDown" title ="Next" id="blkDown">
+        
+        
+        
+        
+        <div class="info">
+            <div id="wesInfo">
+                <h2>Western Name</h2>
+                    <div class="containerShorter">
+                    <ul>
+                        <li>Symbol: <span></span></li>
+                        <li>English Name: <span></span></li>
+                        <li>Element: <span></span></li>
+                        <li>Ruling celetial body: <span></span></li>
+                        <li>Keyword: <span></span></li>
+                    </ul>
+                    </div>
+            </div>
+            <div id="easInfo">
+                <h2>Eastern Name</h2>
+                    <div class="container">
+                    <ul>
+                        <li>Earthly branch: <span></span></li>
+                        <li>Yin-yang: <span></span></li>
+                        <li>Fixed element: <span></span></li>
+                        <li>Season: <span></span></li>
+                        <li>Keywords: <span></span></li>
+                        <li>Years: <span></span></li>
+                    </ul>
+                    </div>
+            </div>
+        </div>
+    </body>
+</html>

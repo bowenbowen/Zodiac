@@ -1,0 +1,443 @@
+@keyframes slide {
+  0%,20% { /* fixed at the top a bit longer */
+    margin-top: 0px;
+  }
+  100% {
+    margin-top: -20vh;
+  }
+}
+@keyframes slideSlight {
+  0%,20% {
+    margin-top: 0px;
+  }
+  100% {
+    margin-top: -30px;
+  }
+}
+/* https://stackoverflow.com/questions/15485694/auto-scrolling-with-css */
+
+
+
+
+html{
+    font-family: 'Ubuntu', sans-serif;
+}
+body{margin:0;}
+
+
+
+/* ---------------------------Basic shape elements--------------------------- */
+#square {
+/*    visibility: hidden;*/
+    position:fixed;
+	width: 50%;
+	height: 100%;
+	background: black;
+    
+    /* So that it doesn't cover any other content */
+/*    z-index: -1;*/
+}
+#circle {
+    position: fixed;
+	width: 150px;
+	height: 150px;
+	background: yellow;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+	border-radius: 75px;
+}
+#circleTrigger {
+    position: fixed;
+	width: 150px;
+	height: 150px;
+	opacity: 0;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+	border-radius: 75px;
+    z-index: 10;
+}
+#circleTrigger:hover~.info{
+    opacity: 1;
+}
+.buttons{
+    cursor: pointer;
+    height: 3vh;
+}
+#blkUp{
+    position: fixed;
+    left:55%;
+    top:35%;
+    transform: translate(-50%, -50%);
+}
+#whiteUp{
+    position: fixed;
+    left:45%;
+    top:35%;
+    transform: translate(-50%, -50%);
+}
+#blkDown{
+    position: fixed;
+    left:55%;
+    top:65%;
+    transform: translate(-50%, -50%);
+}
+#whiteDown{
+    position: fixed;
+    left:45%;
+    top:65%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+/* ---------------------------Tooltip--------------------------- */
+.tooltip {
+    color: #fff;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    margin:1em;}
+.tooltip b{
+    transition: all .2s ease;
+    opacity: 1;
+}
+.tooltip:hover b{
+    opacity: .6;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 170px;
+    background-color: grey;
+    text-align: left;
+    font-size: 0.8em;
+    border-radius: 6px;
+    padding: 5px 5px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+
+/* ---------------------------Page title--------------------------- */
+#pageTitle{
+    font-weight: bold;
+    position: fixed;
+    font-size: 7vh; /* adapt the font size to page size */
+    letter-spacing: 0.3em;
+    color: white;
+    left: 50%;       
+    top: 10%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+#pageTitle span{
+    color: black;
+}
+#pageTitle:hover{
+    opacity: 0.6;
+}
+
+
+
+
+/* ---------------------------Texts on the corners--------------------------- */
+#western{
+    position: fixed;
+    font-size: 4vh; /* adapt the font size to page size */
+    color: white;
+    left: 2%;
+    bottom: 2%;
+}
+#western span{
+    transition: all 0.5s ease;
+    opacity: 0;
+    font-size: 3vh;
+}
+#western:hover span{
+    opacity:1;
+}
+#eastern{
+    position: fixed;
+    font-size: 4vh; /* adapt the font size to page size */
+    writing-mode: vertical-lr; 
+    /* text-orientation is not working here so i turned to
+    https://developer.mozilla.org/en-US/docs/Web/CSS/text-combine-upright */
+    color: black;
+    right: 2%;
+    top: 2%;
+}
+#eastern span{
+    transition: all 0.5s ease;
+    opacity: 0;
+    font-size: 3vh;
+}
+#eastern:hover span{
+    opacity:1;
+}
+
+
+
+
+/* ---------------------------Customize sign button--------------------------- */
+#prompt{
+    position: fixed;
+    left:50%;
+    bottom:10%;
+    transform: translate(-50%, -50%);
+    background-color: yellow;
+    font-size: 3vh;
+    border:none;
+    border-radius: 2vh;
+    padding:1vh 2vh;
+    text-align: center;
+    cursor: pointer; /* No cursor change due to unkonw reason... Gotta change style manally */
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+#prompt:hover{
+    opacity: 0.7;
+}
+
+
+
+/* ---------------------------Sign info--------------------------- */
+
+::-webkit-scrollbar {
+    display:none;
+    width: 0px;
+    background: transparent; /* Make scrollbar transparent */
+}
+/* Make element scrollable but hide scroll bar: 
+https://stackoverflow.com/questions/43186015/css-hide-scroll-bar-but-have-element-scrollable 
+Not actually useful after I added auto scrolling. Buy leave it here anyway because it looks cool and might be useful for other projects. */
+
+.container{
+    animation: slide infinite 5s alternate;
+}
+.containerShorter{
+    animation: slideSlight infinite 5s alternate;
+}
+.info{
+    opacity: 0;
+    transition: all .2s ease;
+}
+#wesInfo{
+    color: black;
+    padding:0 .8em;
+    position: fixed;
+    top:50vh;
+    left:20vw;
+    border:none;
+    border-radius: 20px;
+    width:18%;
+    height:50%;
+    transform: translate(0, -50%);
+    background-color: rgba(255, 255, 255, .8);
+    
+    font-size: 2.7vh;
+    overflow-y: hidden;
+}
+#wesInfo span{
+    font-size: 2.5vh;
+}
+
+#easInfo{
+    color: white;
+    padding:0 .8em;
+    position: fixed;
+    top:50vh;
+    right:20vw;
+    border:none;
+    border-radius: 20px;
+    width:18%;
+    height:50%;
+    transform: translate(0, -50%);
+    background-color: rgba(0, 0, 0, .8);
+    
+    font-size: 2.7vh;
+    overflow-y: hidden;
+}
+#easInfo span{
+    font-size: 2.5vh;
+}
+
+.info h2{
+    text-align: center;
+}
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0 1em;
+}
+li{
+    font-weight:bold;
+    margin: .8em 0;
+}
+li span{
+    display: inline-block; /* Start the content from a new line */
+    font-weight: normal;
+    margin: .2em 0;
+}
+
+
+
+
+
+/* ---------------------------Position sign elements--------------------------- */
+.outer{
+    width:100vw;
+    height:100vh;
+    overflow: hidden;
+}
+.wesSigns{
+    transition: all .2s ease;
+    position: absolute;  
+    top:0;
+    left: 10vw;
+    animation: slide infinite 5s 2s alternate;
+    z-index: 1;
+}
+.easSigns{
+    transition: all .2s ease;
+    position: absolute; 
+    top:0;
+    right: 10vw;
+    animation: slide infinite 5s 2s alternate-reverse;
+    z-index: 0;
+}
+
+
+.idleWes{
+    margin: 2em;
+    display: block;
+    height: 5vh;
+    opacity: .7;
+}
+#w10 {width:5vh;} /* Fix size manually or it'd be obviously bolder than other igns */
+
+.idleEas{
+    margin: 2em;
+    display: block;
+    height: 8vh;
+    opacity: .7;
+}
+
+
+.easOnFocus{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width:100px;
+    transform: translate(-50%,-45%);
+    opacity: 1;
+}
+.wesOnFocus{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+/*    width:30px;*/
+    height: 30px;
+    transform: translate(-50%,-30%);
+    opacity: 1;
+    z-index: 5;
+}
+
+.animate{
+    transition: all 1s ease;
+}
+
+
+
+/* ---------------------------Use media query to make it responsive--------------------------- */
+@media only screen  and (max-width: 700px) { 
+   .wesSigns{
+    transition: all .2s ease;
+    position: absolute;  
+    top: 0;
+    left: 0;
+    animation: slide infinite 5s 2s alternate;
+}
+.easSigns{
+    transition: all .2s ease;
+    position: absolute; 
+    top: 0;
+    right: 0;
+    animation: slide infinite 5s 2s alternate-reverse;
+    
+}
+    #wesInfo{
+    color: black;
+    padding:0 .8em;
+    position: fixed;
+    top:50vh;
+    left:0;
+    border:none;
+    border-radius: 20px;
+    width:40%;
+    height:50%;
+    transform: translate(0, -50%);
+    background-color: rgba(255, 255, 255, .8);
+    
+    font-size: 2.7vh;
+    overflow-y: auto;
+}
+    #easInfo{
+    color: white;
+    padding:0 .8em;
+    position: fixed;
+    top:50vh;
+    right:0;
+    border:none;
+    border-radius: 20px;
+    width:40%;
+    height:50%;
+    transform: translate(0, -50%);
+    background-color: rgba(0, 0, 0, .8);
+    
+    font-size: 2.7vh;
+    overflow-y: auto;
+}
+}
+    @media only screen  and (min-width: 700px) and (max-width: 1100px){
+    #wesInfo{
+    color: black;
+    padding:0 .8em;
+    position: fixed;
+    top:50vh;
+    left:0;
+    border:none;
+    border-radius: 20px;
+    width:30%;
+    height:50%;
+    transform: translate(0, -50%);
+    background-color: rgba(255, 255, 255, .8);
+    
+    font-size: 2.7vh;
+    overflow-y: auto;
+}
+    #easInfo{
+    color: white;
+    padding:0 .8em;
+    position: fixed;
+    top:50vh;
+    right:0;
+    border:none;
+    border-radius: 20px;
+    width:30%;
+    height:50%;
+    transform: translate(0, -50%);
+    background-color: rgba(0, 0, 0, .8);
+    
+    font-size: 2.7vh;
+    overflow-y: auto;
+}
+    }
+}
